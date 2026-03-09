@@ -32,8 +32,8 @@ export interface BuildEvent {
 
 export type BuildEventHandler = (event: BuildEvent) => void;
 
-const DEFAULT_WS_URL = "ws://localhost:8000/ws/build";
-const DEFAULT_HEALTH_URL = "http://localhost:8000/health";
+const DEFAULT_WS_URL = `${import.meta.env.VITE_API_BASE_URL?.replace(/^http/, 'ws') || 'ws://localhost:8000'}/ws/build`;
+const DEFAULT_HEALTH_URL = `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}/health`;
 
 export class BuildClient {
   private ws: WebSocket | null = null;

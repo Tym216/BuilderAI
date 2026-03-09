@@ -56,7 +56,7 @@ export default function SettingsModal({
 
     try {
       const backendUrl =
-        import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+        import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
       const resp = await fetch(`${backendUrl}/api/test-connection`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

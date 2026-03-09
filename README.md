@@ -77,6 +77,70 @@ BuilderAI 是一个强大的 AI 驱动软件开发平台，能够根据用户的
    ```
    前端将在 `http://localhost:5173` 运行
 
+## ☁️ 部署指南
+
+### 环境变量配置
+
+在部署前端前，需要配置后端服务地址：
+
+1. 复制示例配置文件：
+   ```bash
+   cp app/frontend/.env.production.example app/frontend/.env.production
+   ```
+
+2. 编辑 `.env.production`，修改后端地址：
+   ```bash
+   VITE_API_BASE_URL=http://你的后端服务器公网IP:8000
+   ```
+
+### 前端部署
+
+1. **构建生产版本**
+   ```bash
+   cd app/frontend
+   npm run build
+   ```
+
+2. **部署 dist 目录**
+   
+   构建完成后，会在 `app/frontend/dist/` 目录生成静态文件。将这些文件部署到任何静态文件服务器：
+
+   - **Nginx/Apache**：将文件放到 web 根目录
+   - **Vercel**：`vercel deploy dist`
+   - **Netlify**：将 dist 文件夹拖入 Netlify
+   - **阿里云 OSS/COS**：上传 dist 内容到存储桶
+
+### 后端部署
+
+1. **安装依赖**
+   ```bash
+   cd app/backend
+   pip install -r requirements.txt
+   ```
+
+2. **启动服务**
+   ```bash
+   python main.py
+   ```
+
+3. **使用 PM2 管理（推荐）**
+   ```bash
+   npm install -g pm2
+   pm2 start main.py --name builderai
+   ```
+
+### 防火墙配置
+
+确保后端服务器的防火墙开放 8000 端口：
+```bash
+# Ubuntu/Debian
+sudo ufw allow 8000
+
+# CentOS
+sudo firewall-cmd --permanent --add-port=8000/tcp
+sudo firewall-cmd --reload
+```
+
 ## 🔧 配置
 
 ### API 配置
